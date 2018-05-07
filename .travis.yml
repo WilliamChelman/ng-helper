@@ -7,4 +7,5 @@ cache:
     - "node_modules"
 dist: trusty
 script:
+- npm run lint
 - npm test
