@@ -1,4 +1,5 @@
 import program from 'commander';
+import path from 'path';
 
 import { serve } from './serve';
 
@@ -9,12 +10,11 @@ program
     .version(packageJson.version)
     .command('serve [projects...]')
     .option('-i, --interactive', 'launch in interactive mode')
-    .option('--projectRoot [path]', 'path to the root of the repository, defaults to searching current directory', process.cwd())
-    // node bin/ng-helper serve -i a ba cz
+    .option(
+        '--projectRoot [path]',
+        'path to the root of the repository, defaults to searching current directory',
+        (relPath: string, cwd: string) => path.join(cwd, relPath),
+        process.cwd()
+    )
     .action(serve);
 program.parse(process.argv);
-
-// function collect(val: string, memo: string[]): string[] {
-//     memo.push(val);
-//     return memo;
-// }

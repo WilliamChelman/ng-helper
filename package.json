@@ -43,6 +43,7 @@
     },
     "dependencies": {
         "commander": "^2.15.1",
+        "nodemon": "^1.17.4",
         "prompts": "^0.1.8",
         "rxjs": "^6.1.0"
     }
