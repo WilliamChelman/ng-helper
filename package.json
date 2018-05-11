@@ -51,5 +51,8 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "bin": {
+        "ng-helper": "./bin/ng-helper"
     }
 }
