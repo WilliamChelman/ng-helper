@@ -12,7 +12,7 @@ program
     .option('-i, --interactive', 'launch in interactive mode')
     .option(
         '--projectRoot [path]',
-        'path to the root of the repository, defaults to searching current directory',
+        'path to the root of the repository',
         (relPath: string, cwd: string) => path.join(cwd, relPath),
         process.cwd()
     )

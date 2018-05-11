@@ -52,6 +52,9 @@ function serveApp(name: string, app: IProject, options: IServeOptions): Observab
     return subject;
 }
 
+/**
+ * @returns An Observable that fires each time the library finish building
+ */
 function serveLib(name: string, library: IProject, options: IServeOptions): Observable<void> {
     const subject = new Subject<void>();
     const src = path.join(options.projectRoot, library.sourceRoot);
@@ -62,6 +65,7 @@ function serveLib(name: string, library: IProject, options: IServeOptions): Obse
     }).subscribe(message => {
         console.log(message);
         if (message.includes('[nodemon] clean exit')) {
+            // one build just finished
             subject.next();
         }
     }, console.error);
