@@ -3,21 +3,28 @@ import { Observable, of, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { exec } from '../exec';
-import { getProjects, IDictionary, IProject, ProjectType } from '../projects-fetch';
+import { getProjects, IDictionary, IProject, IProjects, ProjectType } from '../projects-fetch';
+import { askProjectRoot, askProjects } from './interactive';
 
-export async function serve(selectedProjectNames: string[], options: IServeOptions) {
-    const { projects, defaultProject } = await getProjects(options.projectRoot);
-
+export async function serve(options: IServeOptions) {
     if (options.interactive) {
-        selectedProjectNames = []; // TODO ask user
-    } else if (options.all) {
-        selectedProjectNames = Object.keys(projects);
-    } else if (!selectedProjectNames || selectedProjectNames.length === 0) {
-        selectedProjectNames = [defaultProject];
+        options = await interactive(options);
     }
+
+    const container: IProjects = await getProjects(options.projectRoot);
+    const { projects, defaultProject } = container;
+
+    if (options.all) {
+        options.projectNames = Object.keys(projects);
+    }
+
+    if (!options.projectNames || options.projectNames.length === 0) {
+        options.projectNames = [defaultProject];
+    }
+
     // only keep relevant projects
     Object.keys(projects)
-        .filter(name => selectedProjectNames.indexOf(name) === -1 || name.endsWith('-e2e'))
+        .filter(name => options.projectNames.indexOf(name) === -1)
         .forEach(name => delete projects[name]);
 
     // We only start the apps after each library built at least once, and each library wait for the previous library to have built before starting
@@ -75,8 +82,20 @@ function serveLib(name: string, library: IProject, options: IServeOptions): Obse
     return subject;
 }
 
+async function interactive(options: IServeOptions): Promise<IServeOptions> {
+    let projectRoot = await askProjectRoot(options.projectRoot);
+    if (projectRoot.startsWith('.')) {
+        projectRoot = path.join(process.cwd(), projectRoot);
+    }
+    const container = await getProjects(projectRoot);
+    // todo change container get with correct path
+    const projectNames = await askProjects(container);
+    return { ...options, projectRoot, projectNames };
+}
+
 export interface IServeOptions {
     interactive: boolean;
     projectRoot: string;
     all: boolean;
+    projectNames: string[];
 }

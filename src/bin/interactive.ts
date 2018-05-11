@@ -1,3 +1,29 @@
-// import { IProjects } from '../projects-fetch';
+import { IProjects } from '../projects-fetch';
 
-// export async function askProjects(): Promise<IProjects> {}
+const prompts = require('prompts');
+
+export async function askProjectRoot(initial: string): Promise<string> {
+    const fieldName = 'value';
+    return prompts({
+        type: 'text',
+        initial,
+        name: fieldName,
+        message: 'set project path'
+    }).then((responses: any) => responses[fieldName]);
+}
+
+export async function askProjects({ projects, defaultProject }: IProjects): Promise<string[]> {
+    const fieldName = 'value';
+    const choices = Object.keys(projects).map(name => ({
+        title: `${name} (${projects[name].projectType})`,
+        value: name,
+        selected: name === defaultProject
+    }));
+    return prompts({
+        type: 'multiselect',
+        name: fieldName,
+        message: 'Choose projects to serve',
+        choices,
+        hint: '- Space to select. Return to submit'
+    }).then((responses: any) => responses[fieldName]);
+}

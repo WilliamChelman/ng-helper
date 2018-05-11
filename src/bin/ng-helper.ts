@@ -17,5 +17,7 @@ program
         (relPath: string, cwd: string) => path.join(cwd, relPath),
         process.cwd()
     )
-    .action(serve);
+    .action((projectNames: string[], options: any) => {
+        serve({ ...options, projectNames });
+    });
 program.parse(process.argv);

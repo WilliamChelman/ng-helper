@@ -1,13 +1,21 @@
 import fs from 'fs';
 import path from 'path';
 
+const cache: IDictionary<IProjects> = {};
+
 export async function getProjects(rootPath: string): Promise<IProjects> {
+    if (cache[rootPath]) {
+        return cache[rootPath];
+    }
     const filePath = path.join(rootPath, 'angular.json');
     if (!fs.existsSync(filePath)) {
         throw new Error(`File ${filePath} does not exists`);
     }
-
-    return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const container: IProjects = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    Object.keys(container.projects)
+        .filter(name => name.endsWith('-e2e'))
+        .forEach(name => delete container.projects[name]);
+    return (cache[rootPath] = container);
 }
 
 export interface IProjects {
