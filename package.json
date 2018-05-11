@@ -48,5 +48,8 @@
         "nodemon": "^1.17.4",
         "prompts": "^0.1.8",
         "rxjs": "^6.1.0"
+    },
+    "publishConfig": {
+        "access": "public"
     }
 }
