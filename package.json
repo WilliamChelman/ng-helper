@@ -1,7 +1,7 @@
 {
     "name": "@nephidream/ng-helper",
     "version": "0.2.4",
-    "description": "",
+    "description": "Help you ease development experience with an `@angular/cli` 6+ project with multiple applications and/or libraries.",
     "main": "dist/index.js",
     "private": false,
     "directories": {
@@ -17,7 +17,8 @@
         "type": "git",
         "url": "git+https://github.com/WilliamChelman/ng-helper.git"
     },
-    "author": "",
+    "author": "William Chelman",
+    "keywords": ["angular", "angular-cli", "Angular CLI"],
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/WilliamChelman/ng-helper/issues"
