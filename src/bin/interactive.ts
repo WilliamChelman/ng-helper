@@ -1,5 +1,6 @@
 import { IProjects } from '../projects-fetch';
 
+// tslint:disable-next-line:no-var-requires
 const prompts = require('prompts');
 
 export async function askProjectRoot(initial: string): Promise<string> {
