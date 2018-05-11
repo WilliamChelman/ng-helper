@@ -1,6 +1,6 @@
 {
     "name": "@nephidream/ng-helper",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "",
     "main": "dist/index.js",
     "private": false,
@@ -48,5 +48,8 @@
         "nodemon": "^1.17.4",
         "prompts": "^0.1.8",
         "rxjs": "^6.1.0"
+    },
+    "publishConfig": {
+        "access": "public"
     }
 }
