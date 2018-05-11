@@ -1,6 +1,6 @@
 {
     "name": "@nephidream/ng-helper",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "",
     "main": "dist/index.js",
     "private": false,
@@ -51,5 +51,8 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "bin": {
+        "ng-helper": "./bin/ng-helper"
     }
 }
