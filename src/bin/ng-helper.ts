@@ -10,6 +10,7 @@ program
     .version(packageJson.version)
     .command('serve [projects...]')
     .option('-i, --interactive', 'launch in interactive mode')
+    .option('-a, --all', 'start everything')
     .option(
         '--projectRoot [path]',
         'path to the root of the repository',

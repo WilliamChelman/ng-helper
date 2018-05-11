@@ -10,12 +10,14 @@ export async function serve(selectedProjectNames: string[], options: IServeOptio
 
     if (options.interactive) {
         selectedProjectNames = []; // TODO ask user
+    } else if (options.all) {
+        selectedProjectNames = Object.keys(projects);
     } else if (!selectedProjectNames || selectedProjectNames.length === 0) {
         selectedProjectNames = [defaultProject];
     }
     // only keep relevant projects
     Object.keys(projects)
-        .filter(name => selectedProjectNames.indexOf(name) === -1)
+        .filter(name => selectedProjectNames.indexOf(name) === -1 || name.endsWith('-e2e'))
         .forEach(name => delete projects[name]);
 
     // We only start the apps after each library built at least once, and each library wait for the previous library to have built before starting
@@ -76,4 +78,5 @@ function serveLib(name: string, library: IProject, options: IServeOptions): Obse
 export interface IServeOptions {
     interactive: boolean;
     projectRoot: string;
+    all: boolean;
 }
