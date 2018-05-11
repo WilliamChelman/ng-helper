@@ -1,7 +1,7 @@
 import { spawn, SpawnOptions } from 'child_process';
 import { Observable, Subject } from 'rxjs';
 
-export function execO(command: string, args?: string[], spawnOptions?: SpawnOptions): Observable<string> {
+export function exec(command: string, args?: string[], spawnOptions?: SpawnOptions): Observable<string> {
     const subject = new Subject<string>();
 
     const child = spawn(command, args, spawnOptions);
@@ -14,10 +14,13 @@ export function execO(command: string, args?: string[], spawnOptions?: SpawnOpti
 
     process.on('SIGINT', killer);
 
-    child.stdout!.on('data', data => subject.next(data.toString()));
+    if (child.stdout) {
+        child.stdout.on('data', data => subject.next(data.toString()));
+    }
 
-    child.stderr!.on('data', data => subject.error(data.toString()));
-
+    if (child.stderr) {
+        child!.stderr.on('data', data => subject.error(data.toString()));
+    }
     child.on('exit', code => {
         process.removeListener('SIGINT', killer);
         if (!killed) {

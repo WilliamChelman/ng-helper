@@ -12,12 +12,24 @@ export async function getProjects(rootPath: string): Promise<IProjects> {
 
 export interface IProjects {
     defaultProject: string;
-    projects: { [name: string]: IProject };
+    projects: IDictionary<IProject>;
 }
 
 export interface IProject {
     projectType: ProjectType;
     sourceRoot: string;
+}
+
+export interface IPackageJson {
+    name: string;
+    dependencies: IDictionary<string>;
+    peerDependencies: IDictionary<string>;
+    scripts: IDictionary<string>;
+}
+
+export interface IDictionary<T> {
+    [key: string]: T;
+    [key: number]: T;
 }
 
 export enum ProjectType {
