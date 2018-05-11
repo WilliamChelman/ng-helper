@@ -3,6 +3,7 @@ import { Observable, of, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { exec } from '../exec';
+import { Logger } from '../logger';
 import { getProjects, IDictionary, IProject, IProjects, ProjectType } from '../projects-fetch';
 import { askProjectRoot, askProjects } from './interactive';
 
@@ -55,8 +56,8 @@ function serveApp(name: string, app: IProject, options: IServeOptions): Observab
 
     // Could not parse stdout out ng serve for some reason, so nothing interesting here for now
     exec('ng', ['serve', name], { cwd: options.projectRoot, stdio: ['pipe', process.stdout, process.stderr] }).subscribe(message => {
-        console.log('NEXT', message);
-    }, console.error);
+        Logger.log('NEXT', message);
+    }, Logger.error);
 
     return subject;
 }
@@ -72,12 +73,12 @@ function serveLib(name: string, library: IProject, options: IServeOptions): Obse
         cwd: options.projectRoot,
         shell: true
     }).subscribe(message => {
-        console.log(message);
+        Logger.log(message);
         if (message.includes('[nodemon] clean exit')) {
             // one build just finished
             subject.next();
         }
-    }, console.error);
+    }, Logger.error);
 
     return subject;
 }
