@@ -11,6 +11,7 @@ program
     .command('serve [projects...]')
     .option('-i, --interactive', 'launch in interactive mode')
     .option('-a, --all', 'start everything')
+    .option('--all-libs', 'start all libraries')
     .option(
         '--projectRoot [path]',
         'path to the root of the repository',

@@ -43,7 +43,8 @@ Usage: ng-helper serve [options] [projects...]
 
     -i, --interactive     launch in interactive mode
     -a, --all             start everything
-    --projectRoot [path]  path to the root of the repository (default: current folder)
+    --all-libs            start all libraries
+    --projectRoot [path]  path to the root of the repository (default: /home/wchelman/Dev/ng-helper)
     -h, --help            output usage information
 ```
 

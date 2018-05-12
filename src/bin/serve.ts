@@ -19,6 +19,13 @@ export async function serve(options: IServeOptions) {
         options.projectNames = Object.keys(projects);
     }
 
+    if (options.allLibs) {
+        const libs = Object.keys(projects).filter(
+            name => projects[name].projectType === ProjectType.LIB && options.projectNames.indexOf(name) === -1
+        );
+        options.projectNames.push(...libs);
+    }
+
     if (!options.projectNames || options.projectNames.length === 0) {
         options.projectNames = [defaultProject];
     }
@@ -98,5 +105,6 @@ export interface IServeOptions {
     interactive: boolean;
     projectRoot: string;
     all: boolean;
+    allLibs: boolean;
     projectNames: string[];
 }
