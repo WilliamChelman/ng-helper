@@ -1,9 +1,12 @@
 import { spawn, SpawnOptions } from 'child_process';
 import { Observable, Subject } from 'rxjs';
 
-export function exec(command: string, args?: string[], spawnOptions?: SpawnOptions): Observable<string> {
-    const subject = new Subject<string>();
+import { Logger } from './logger';
 
+export function exec(command: string, args: string[] = [], spawnOptions?: SpawnOptions): Observable<string> {
+    Logger.info(`Executing: ${command} ${args.join(' ')}`);
+
+    const subject = new Subject<string>();
     const child = spawn(command, args, spawnOptions);
     let killed = false;
 

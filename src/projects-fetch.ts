@@ -1,9 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
+import { Logger } from './logger';
+
 const cache: IDictionary<IProjects> = {};
 
-export async function getProjects(rootPath: string): Promise<IProjects> {
+export function getProjects(rootPath: string): IProjects {
     if (cache[rootPath]) {
         return cache[rootPath];
     }
@@ -11,6 +13,7 @@ export async function getProjects(rootPath: string): Promise<IProjects> {
     if (!fs.existsSync(filePath)) {
         throw new Error(`File ${filePath} does not exists`);
     }
+    Logger.info(`Parsing: ${filePath}`);
     const container: IProjects = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     Object.keys(container.projects)
         .filter(name => name.endsWith('-e2e'))
