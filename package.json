@@ -7,6 +7,8 @@
     "scripts": {
         "test": "mocha --opts ./mocha.opts",
         "test:watch": "npm test -- --watch --watch-extensions ts",
+        "test:coverage": "nyc npm test",
+        "test:coverage-report": "nyc report --reporter=json > coverage/coverage.json",
         "build": "tsc",
         "lint": "tslint -c tslint.json 'src/**/*.ts'",
         "precommit": "pretty-quick --staged"
@@ -31,6 +33,7 @@
         "chai": "^4.1.2",
         "husky": "^0.14.3",
         "mocha": "^5.1.1",
+        "nyc": "^11.7.3",
         "prettier": "^1.12.1",
         "pretty-quick": "^1.4.1",
         "sinon": "^5.0.7",
@@ -55,5 +58,12 @@
     },
     "bin": {
         "ng-helper": "./bin/ng-helper"
+    },
+    "nyc": {
+        "extension": [".ts"],
+        "exclude": ["coverage/**/*", "test/**/*", "dist/**/*", "src/**/*.spec.ts", "**/*.d.ts"],
+        "reporter": ["lcov"],
+        "all": true,
+        "require": ["ts-node/register", "source-map-support/register"]
     }
 }
