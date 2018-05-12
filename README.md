@@ -34,7 +34,7 @@ Like this you can do stuff like `npm run ng-helper -- serve -i`
 
 ### Serve
 
-You can serve multiple applications and libraries with just one line of code using `ng-helper serve`. With, served libraries are automatically rebuilt on code modification, and the app(s) using it as well.
+You can serve multiple applications and libraries with just one line of code using `ng-helper serve`. With this, served libraries are automatically rebuilt on code modification, and the apps using them as well.
 
 ```bash
   Usage: ng-helper serve [options] [projects...]
@@ -70,7 +70,9 @@ For example, if you are in the root of your application and you generated some a
 }
 ```
 
-So you could serve them like (partially) with `ng-helper serve lib-b app-b lib-a` or `npm run ng-helper -- serve lib-b app-b lib-a`. The libraries will be served first and then the applications. Also, the serving follows the order in the `angular.json` file. So in this example, the projects are served in the following order: `lib-a`, `lib-b` and then `app-b`. A few things to take in consideration:
+So you could serve them (partially) with `npm run ng-helper -- serve lib-b app-b lib-a`. The libraries will be served first and then the applications. Also, the serving follows the order in the `angular.json` file. So in this example, the projects are served in the following order: `lib-a`, `lib-b` and then `app-b`.
+
+A few other things to consider:
 
 *   When serving multiple apps at the same time, beware that the default port 4200 might be used for all of them, so you might want to modify the corresponding `angular.json` properties to specify different ports for the different apps.
 *   The e2e applications cannot be served and the binary ignore all applications ending with `-e2e`

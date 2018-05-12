@@ -4,10 +4,10 @@ import path from 'path';
 import { serve } from './serve';
 
 // tslint:disable-next-line:no-var-requires
-const packageJson = require('../../package.json');
+const { version } = require('../../package.json');
 
 program
-    .version(packageJson.version)
+    .version(version)
     .command('serve [projects...]')
     .option('-i, --interactive', 'launch in interactive mode')
     .option('-a, --all', 'start everything')
@@ -18,9 +18,9 @@ program
             ' (if more than one option, you have to put everything between quotes)'
     )
     .option(
-        '--projectRoot [path]',
+        '--projectRoot <path>',
         'path to the root of the repository',
-        (relPath: string, cwd: string) => path.join(cwd, relPath),
+        (relPath: string, cwd: string) => (relPath.startsWith('.') ? path.join(cwd, relPath) : relPath),
         process.cwd()
     )
     .action((projectNames: string[], options: any) => {

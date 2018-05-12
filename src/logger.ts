@@ -1,3 +1,5 @@
+import chalk from 'chalk';
+
 export enum LogLevel {
     DEBUG,
     LOG,
@@ -25,19 +27,19 @@ export class Logger {
 
     static info(...args: any[]) {
         if (this.logLevel <= LogLevel.INFO) {
-            console.info(...args);
+            console.info(chalk.magenta(...args));
         }
     }
 
     static warn(...args: any[]) {
         if (this.logLevel <= LogLevel.WARN) {
-            console.warn(...args);
+            console.warn(chalk.yellow(...args));
         }
     }
 
     static error(...args: any[]) {
         if (this.logLevel <= LogLevel.ERROR) {
-            console.error(...args);
+            console.error(chalk.red(...args));
         }
     }
 
