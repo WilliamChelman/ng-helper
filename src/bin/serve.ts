@@ -35,7 +35,8 @@ export async function serve(options: IServeOptions) {
         .filter(name => options.projectNames.indexOf(name) === -1)
         .forEach(name => delete projects[name]);
 
-    // We only start the apps after each library built at least once, and each library wait for the previous library to have built before starting
+    // We only start the apps after each library built at least once,
+    // and each library wait for the previous library to have built before starting
     const libraries$ = Object.keys(projects)
         .filter(name => projects[name].projectType === ProjectType.LIB)
         .reduce((previous$, name) => {
@@ -64,12 +65,12 @@ function serveApp(name: string, app: IProject, options: IServeOptions): Observab
     const subject = new Subject<void>();
     const appOptions = options.appOptions ? options.appOptions.split(' ') : [];
     // Could not parse stdout out ng serve for some reason, so nothing interesting here for now
-    exec('ng', ['serve', name, ...appOptions], { cwd: options.projectRoot, stdio: ['pipe', process.stdout, process.stderr] }).subscribe(
-        message => {
-            Logger.log('NEXT', message);
-        },
-        Logger.error
-    );
+    exec('ng', ['serve', name, ...appOptions], {
+        cwd: options.projectRoot,
+        stdio: ['pipe', process.stdout, process.stderr]
+    }).subscribe(message => {
+        Logger.log('NEXT', message);
+    }, Logger.error);
 
     return subject;
 }

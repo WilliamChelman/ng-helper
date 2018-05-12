@@ -14,7 +14,8 @@ program
     .option('--all-libs', 'start all libraries')
     .option(
         '--app-options <options>',
-        'set options for app serving, like "--aot --prod" (if more than one option, you have to put everything between quotes)'
+        'set options for app serving, like "--aot --prod"' +
+            ' (if more than one option, you have to put everything between quotes)'
     )
     .option(
         '--projectRoot [path]',
