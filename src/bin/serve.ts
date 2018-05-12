@@ -12,7 +12,7 @@ export async function serve(options: IServeOptions) {
         options = await interactive(options);
     }
 
-    const container: IProjects = await getProjects(options.projectRoot);
+    const container: IProjects = getProjects(options.projectRoot);
     const { projects, defaultProject } = container;
 
     if (options.all) {
@@ -102,7 +102,7 @@ async function interactive(options: IServeOptions): Promise<IServeOptions> {
     if (projectRoot.startsWith('.')) {
         projectRoot = path.join(process.cwd(), projectRoot);
     }
-    const container = await getProjects(projectRoot);
+    const container = getProjects(projectRoot);
     // todo change container get with correct path
     const projectNames = await askProjects(container);
     return { ...options, projectRoot, projectNames };

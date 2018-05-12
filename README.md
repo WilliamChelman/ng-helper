@@ -45,7 +45,7 @@ You can serve multiple applications and libraries with just one line of code usi
     -a, --all                start everything
     --all-libs               start all libraries
     --app-options <options>  set options for app serving, like "--aot --prod" (if more than one option, you have to put everything between quotes)
-    --projectRoot [path]     path to the root of the repository (default: /home/wchelman/Dev/ng-helper)
+    --projectRoot [path]     path to the root of the repository (default: current folder)
     -h, --help               output usage information
 ```
 
