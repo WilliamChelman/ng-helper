@@ -59,12 +59,17 @@ function serveApps(projects: IDictionary<IProject>, options: IServeOptions) {
 }
 
 function serveApp(name: string, app: IProject, options: IServeOptions): Observable<void> {
-    const subject = new Subject<void>();
+    Logger.info(`Serving application: ${name}`);
 
+    const subject = new Subject<void>();
+    const appOptions = options.appOptions ? options.appOptions.split(' ') : [];
     // Could not parse stdout out ng serve for some reason, so nothing interesting here for now
-    exec('ng', ['serve', name], { cwd: options.projectRoot, stdio: ['pipe', process.stdout, process.stderr] }).subscribe(message => {
-        Logger.log('NEXT', message);
-    }, Logger.error);
+    exec('ng', ['serve', name, ...appOptions], { cwd: options.projectRoot, stdio: ['pipe', process.stdout, process.stderr] }).subscribe(
+        message => {
+            Logger.log('NEXT', message);
+        },
+        Logger.error
+    );
 
     return subject;
 }
@@ -73,6 +78,8 @@ function serveApp(name: string, app: IProject, options: IServeOptions): Observab
  * @returns An Observable that fires each time the library finish building
  */
 function serveLib(name: string, library: IProject, options: IServeOptions): Observable<void> {
+    Logger.info(`Serving library: ${name}`);
+
     const subject = new Subject<void>();
     const src = path.join(options.projectRoot, library.sourceRoot);
     const args = [`--watch ${src}`, '--ext ts,html,css,scss', `--exec 'ng build ${name}'`];
@@ -107,4 +114,5 @@ export interface IServeOptions {
     all: boolean;
     allLibs: boolean;
     projectNames: string[];
+    appOptions: string;
 }

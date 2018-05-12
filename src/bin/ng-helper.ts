@@ -13,6 +13,10 @@ program
     .option('-a, --all', 'start everything')
     .option('--all-libs', 'start all libraries')
     .option(
+        '--app-options <options>',
+        'set options for app serving, like "--aot --prod" (if more than one option, you have to put everything between quotes)'
+    )
+    .option(
         '--projectRoot [path]',
         'path to the root of the repository',
         (relPath: string, cwd: string) => path.join(cwd, relPath),
