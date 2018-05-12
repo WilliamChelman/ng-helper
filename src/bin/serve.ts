@@ -12,11 +12,18 @@ export async function serve(options: IServeOptions) {
         options = await interactive(options);
     }
 
-    const container: IProjects = await getProjects(options.projectRoot);
+    const container: IProjects = getProjects(options.projectRoot);
     const { projects, defaultProject } = container;
 
     if (options.all) {
         options.projectNames = Object.keys(projects);
+    }
+
+    if (options.allLibs) {
+        const libs = Object.keys(projects).filter(
+            name => projects[name].projectType === ProjectType.LIB && options.projectNames.indexOf(name) === -1
+        );
+        options.projectNames.push(...libs);
     }
 
     if (!options.projectNames || options.projectNames.length === 0) {
@@ -52,12 +59,17 @@ function serveApps(projects: IDictionary<IProject>, options: IServeOptions) {
 }
 
 function serveApp(name: string, app: IProject, options: IServeOptions): Observable<void> {
-    const subject = new Subject<void>();
+    Logger.info(`Serving application: ${name}`);
 
+    const subject = new Subject<void>();
+    const appOptions = options.appOptions ? options.appOptions.split(' ') : [];
     // Could not parse stdout out ng serve for some reason, so nothing interesting here for now
-    exec('ng', ['serve', name], { cwd: options.projectRoot, stdio: ['pipe', process.stdout, process.stderr] }).subscribe(message => {
-        Logger.log('NEXT', message);
-    }, Logger.error);
+    exec('ng', ['serve', name, ...appOptions], { cwd: options.projectRoot, stdio: ['pipe', process.stdout, process.stderr] }).subscribe(
+        message => {
+            Logger.log('NEXT', message);
+        },
+        Logger.error
+    );
 
     return subject;
 }
@@ -66,6 +78,8 @@ function serveApp(name: string, app: IProject, options: IServeOptions): Observab
  * @returns An Observable that fires each time the library finish building
  */
 function serveLib(name: string, library: IProject, options: IServeOptions): Observable<void> {
+    Logger.info(`Serving library: ${name}`);
+
     const subject = new Subject<void>();
     const src = path.join(options.projectRoot, library.sourceRoot);
     const args = [`--watch ${src}`, '--ext ts,html,css,scss', `--exec 'ng build ${name}'`];
@@ -88,7 +102,7 @@ async function interactive(options: IServeOptions): Promise<IServeOptions> {
     if (projectRoot.startsWith('.')) {
         projectRoot = path.join(process.cwd(), projectRoot);
     }
-    const container = await getProjects(projectRoot);
+    const container = getProjects(projectRoot);
     // todo change container get with correct path
     const projectNames = await askProjects(container);
     return { ...options, projectRoot, projectNames };
@@ -98,5 +112,7 @@ export interface IServeOptions {
     interactive: boolean;
     projectRoot: string;
     all: boolean;
+    allLibs: boolean;
     projectNames: string[];
+    appOptions: string;
 }

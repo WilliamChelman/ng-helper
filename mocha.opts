@@ -2,5 +2,5 @@
 --reporter spec
 --colors
 --sort
---exclude ./test/test-app/**/*
-./test/**/*.spec.ts
+--file ./test/test.ts
+./src/**/*.spec.ts

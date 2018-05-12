@@ -1,6 +1,6 @@
-# ng-helper [![Build Status](https://travis-ci.org/WilliamChelman/ng-helper.svg?branch=master)](https://travis-ci.org/WilliamChelman/ng-helper)
+# ng-helper
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/WilliamChelman/ng-helper.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/WilliamChelman/ng-helper.svg?branch=master)](https://travis-ci.org/WilliamChelman/ng-helper) [![codecov](https://codecov.io/gh/WilliamChelman/ng-helper/branch/master/graph/badge.svg)](https://codecov.io/gh/WilliamChelman/ng-helper) [![Greenkeeper badge](https://badges.greenkeeper.io/WilliamChelman/ng-helper.svg)](https://greenkeeper.io/)
 
 Help you ease development experience with an `@angular/cli` 6+ project with multiple applications and/or libraries.
 
@@ -34,17 +34,19 @@ Like this you can do stuff like `npm run ng-helper -- serve -i`
 
 ### Serve
 
-You can serve multiple applications and libraries with just one line of code using `ng-helper serve`.
+You can serve multiple applications and libraries with just one line of code using `ng-helper serve`. With, served libraries are automatically rebuilt on code modification, and the app(s) using it as well.
 
 ```bash
-Usage: ng-helper serve [options] [projects...]
+  Usage: ng-helper serve [options] [projects...]
 
   Options:
 
-    -i, --interactive     launch in interactive mode
-    -a, --all             start everything
-    --projectRoot [path]  path to the root of the repository (default: current folder)
-    -h, --help            output usage information
+    -i, --interactive        launch in interactive mode
+    -a, --all                start everything
+    --all-libs               start all libraries
+    --app-options <options>  set options for app serving, like "--aot --prod" (if more than one option, you have to put everything between quotes)
+    --projectRoot [path]     path to the root of the repository (default: current folder)
+    -h, --help               output usage information
 ```
 
 For example, if you are in the root of your application and you generated some applications and/or libraries, your `angular.json` might look like
