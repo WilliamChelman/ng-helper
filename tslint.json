@@ -3,6 +3,7 @@
     "extends": ["tslint:recommended", "tslint-config-prettier"],
     "jsRules": {},
     "rules": {
+        "max-line-length": [true, 120],
         "member-access": [true, "no-public"],
         "object-literal-sort-keys": false,
         "quotemark": false
