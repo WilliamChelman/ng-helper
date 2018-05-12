@@ -23,4 +23,5 @@ deploy:
   api_key: $NPM_KEY
   skip_cleanup: true
   on:
+    node: 8
     tags: true
