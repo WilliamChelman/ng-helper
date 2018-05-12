@@ -1,0 +1,14 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "test/test-app/package.json",
+        "test/test-app/projects/lib-a/ng-package.json",
+        "test/test-app/projects/lib-a/package.json",
+        "test/test-app/projects/lib-b/ng-package.json",
+        "test/test-app/projects/lib-b/package.json"
+      ]
+    }
+  }
+}
