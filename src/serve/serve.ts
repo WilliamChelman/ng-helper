@@ -2,10 +2,10 @@ import path from 'path';
 import { Observable, of, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { askProjectRoot, askProjects } from '../common/interactive';
 import { Logger } from '../logger';
 import { getProjects, IDictionary, IProject, IProjects, ProjectType } from '../projects-fetch';
 import { spawn } from '../spawn';
-import { askProjectRoot, askProjects } from './interactive';
 
 export async function serve(options: IServeOptions) {
     if (options.interactive) {
