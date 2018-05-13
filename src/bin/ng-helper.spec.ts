@@ -2,13 +2,13 @@ import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import sinon, { SinonStub } from 'sinon';
 
-import * as serve from '../serve/serve';
+import { Serve } from '../serve/serve';
 import { NgHelper } from './ng-helper';
 
 describe('ng-helper', () => {
     let serveStub: SinonStub;
     before(() => {
-        serveStub = sinon.stub(serve, 'serve');
+        serveStub = sinon.stub(Serve, 'serve');
     });
     after(() => serveStub.restore());
     it('should serve', () => {

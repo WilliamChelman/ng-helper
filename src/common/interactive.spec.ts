@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
-import { IProjects, ProjectType } from '../projects-fetch';
+import { IProjects, ProjectType } from './projects-fetch';
 import { askProjectRoot, askProjects } from './interactive';
 
 // tslint:disable-next-line:no-var-requires

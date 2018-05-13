@@ -2,7 +2,7 @@ import program, { Command } from 'commander';
 import path from 'path';
 
 import { build } from '../build/build';
-import { serve } from '../serve/serve';
+import { Serve } from '../serve/serve';
 
 // tslint:disable-next-line:no-var-requires
 const { version } = require('../../package.json');
@@ -12,7 +12,7 @@ export class NgHelper {
         program.version(version);
         this.commonOptions(
             program.command('serve [projects...]').action((projectNames: string[], options: any) => {
-                serve({ ...options, projectNames });
+                Serve.serve({ ...options, projectNames });
             })
         );
 
