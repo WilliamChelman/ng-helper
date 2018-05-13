@@ -8,7 +8,7 @@ export function getProjects(rootPath: string): IProjects {
     if (!fs.existsSync(filePath)) {
         throw new Error(`File ${filePath} does not exists`);
     }
-    Logger.info(`Parsing: ${filePath}`);
+    Logger.debug(`Parsing: ${filePath}`);
     const container: IProjects = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     Object.keys(container.projects)
         .filter(name => name.endsWith('-e2e'))

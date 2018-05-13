@@ -3,6 +3,8 @@ import { Observable, of, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { Logger } from '../common/logger';
+import { Ng } from '../common/ng';
+import { Nodemon } from '../common/nodemon';
 import { ICommonOptions, Options } from '../common/options';
 import { getProjects, IDictionary, IProject, ProjectType } from '../common/projects-fetch';
 import { spawn } from '../common/spawn';
@@ -22,16 +24,15 @@ export class Serve {
         const libraries$ = Object.keys(projects)
             .filter(name => projects[name].projectType === ProjectType.LIB)
             .reduce((previous$, name) => {
-                console.log('Processing', name);
-
                 const project = projects[name];
                 const subject = new Subject();
+
                 previous$.pipe(take(1)).subscribe(() => {
-                    console.log('Previous fired', name);
                     this.serveLib(name, project, options)
                         .pipe(take(1))
                         .subscribe(() => subject.next());
                 });
+
                 return subject;
             }, of({})); // need to put something in the "of" otherwise it will not fire
 
@@ -50,12 +51,15 @@ export class Serve {
         const subject = new Subject<void>();
         const appOptions = options.appOptions ? options.appOptions.split(' ') : [];
         // Could not parse stdout out ng serve for some reason, so nothing interesting here for now
-        spawn('ng', ['serve', name, ...appOptions], {
+        spawn(Ng.getBinPath(), ['serve', name, ...appOptions], {
             cwd: options.projectRoot,
             stdio: ['pipe', process.stdout, process.stderr]
-        }).subscribe(message => {
-            Logger.log('NEXT', message);
-        }, Logger.error);
+        }).subscribe(
+            message => {
+                Logger.log('NEXT', message);
+            },
+            err => Logger.error(`Error while serving application ${name}:`, err)
+        );
 
         return subject;
     }
@@ -68,8 +72,10 @@ export class Serve {
 
         const subject = new Subject<void>();
         const src = path.join(options.projectRoot, library.sourceRoot);
+        const command = Nodemon.getBinPath();
         const args = [`--watch ${src}`, '--ext ts,html,css,scss', `--exec 'ng build ${name}'`];
-        spawn('nodemon', args, {
+
+        spawn(command, args, {
             cwd: options.projectRoot,
             shell: true
         }).subscribe(

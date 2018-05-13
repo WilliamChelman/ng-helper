@@ -21,22 +21,22 @@ describe('Serve', () => {
     it('should serve default app', async () => {
         await Serve.serve({ projectRoot, projectNames: [], appOptions: '' });
         expect(spawnStub.callCount).to.eq(1);
-        expect(getExecLine(0)).to.eq('ng serve test-app');
+        expect(getExecLine(0).endsWith('ng serve test-app')).to.eq(true);
     });
 
     it('should serve apps with options', async () => {
         await Serve.serve({ projectRoot, projectNames: ['app-a', 'app-b'], appOptions: '--aot --prod' });
         expect(spawnStub.callCount).to.eq(2);
-        expect(getExecLine(0)).to.eq('ng serve app-a --aot --prod');
-        expect(getExecLine(1)).to.eq('ng serve app-b --aot --prod');
+        expect(getExecLine(0).endsWith('ng serve app-a --aot --prod')).to.eq(true);
+        expect(getExecLine(1).endsWith('ng serve app-b --aot --prod')).to.eq(true);
     });
 
     it('should serve one library', async () => {
         await Serve.serve({ projectRoot, projectNames: ['lib-a'], appOptions: '' });
         expect(spawnStub.callCount).to.eq(1);
-        expect(getExecLine(0)).to.eq(
-            "nodemon --watch test/test-app/projects/lib-a/src --ext ts,html,css,scss --exec 'ng build lib-a'"
-        );
+        const expectedCommand =
+            "nodemon --watch test/test-app/projects/lib-a/src --ext ts,html,css,scss --exec 'ng build lib-a'";
+        expect(getExecLine(0).endsWith(expectedCommand)).to.eq(true);
     });
 
     function getExecLine(index: number): string {

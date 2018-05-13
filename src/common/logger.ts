@@ -11,7 +11,7 @@ export enum LogLevel {
 
 // tslint:disable:no-console
 export class Logger {
-    static logLevel: LogLevel = LogLevel.INFO;
+    static logLevel: LogLevel = LogLevel.DEBUG;
 
     static debug(...args: any[]) {
         if (this.logLevel <= LogLevel.DEBUG) {

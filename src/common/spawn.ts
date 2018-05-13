@@ -5,7 +5,6 @@ import { Logger } from './logger';
 
 export function spawn(command: string, args: string[] = [], spawnOptions: SpawnOptions = {}): Observable<string> {
     Logger.info(`Executing: ${command} ${args.join(' ')}`);
-    Logger.info(`With cwd: ${spawnOptions.cwd}`);
 
     const subject = new Subject<string>();
     const child = realSpawn(command, args, spawnOptions);
@@ -26,7 +25,6 @@ export function spawn(command: string, args: string[] = [], spawnOptions: SpawnO
         child.stderr.on('data', data => subject.error(data.toString()));
     }
     child.on('exit', (code, signal) => {
-        console.log('THIS IS EXITING', code, signal);
         process.removeListener('SIGINT', killer);
         if (!killed) {
             if (code !== 0) {
