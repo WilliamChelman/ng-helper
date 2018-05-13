@@ -1,4 +1,4 @@
-import { IProjects } from '../projects-fetch';
+import { IProjects } from './projects-fetch';
 
 // tslint:disable-next-line:no-var-requires
 const prompts = require('prompts');

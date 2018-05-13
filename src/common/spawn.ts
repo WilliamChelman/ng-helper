@@ -3,7 +3,7 @@ import { Observable, Subject } from 'rxjs';
 
 import { Logger } from './logger';
 
-export function spawn(command: string, args: string[] = [], spawnOptions?: SpawnOptions): Observable<string> {
+export function spawn(command: string, args: string[] = [], spawnOptions: SpawnOptions = {}): Observable<string> {
     Logger.info(`Executing: ${command} ${args.join(' ')}`);
 
     const subject = new Subject<string>();
@@ -24,7 +24,7 @@ export function spawn(command: string, args: string[] = [], spawnOptions?: Spawn
     if (child.stderr) {
         child.stderr.on('data', data => subject.error(data.toString()));
     }
-    child.on('exit', code => {
+    child.on('exit', (code, signal) => {
         process.removeListener('SIGINT', killer);
         if (!killed) {
             if (code !== 0) {

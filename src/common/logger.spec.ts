@@ -21,7 +21,6 @@ function testLogger(method: keyof (typeof Logger), calls: number) {
         (Logger as any)[method](method);
     }
     expect(logSpy.callCount).to.eq(calls, `console.${method} should have been called ${calls} time(s)`);
-    // console.log(`console.${method}.restore ?`, (console as any)[method].restore);
     logSpy.restore();
 }
 
