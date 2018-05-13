@@ -2,9 +2,9 @@ import path from 'path';
 import { Observable, of, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { exec } from '../exec';
 import { Logger } from '../logger';
 import { getProjects, IDictionary, IProject, IProjects, ProjectType } from '../projects-fetch';
+import { spawn } from '../spawn';
 import { askProjectRoot, askProjects } from './interactive';
 
 export async function serve(options: IServeOptions) {
@@ -65,7 +65,7 @@ function serveApp(name: string, app: IProject, options: IServeOptions): Observab
     const subject = new Subject<void>();
     const appOptions = options.appOptions ? options.appOptions.split(' ') : [];
     // Could not parse stdout out ng serve for some reason, so nothing interesting here for now
-    exec('ng', ['serve', name, ...appOptions], {
+    spawn('ng', ['serve', name, ...appOptions], {
         cwd: options.projectRoot,
         stdio: ['pipe', process.stdout, process.stderr]
     }).subscribe(message => {
@@ -84,7 +84,7 @@ function serveLib(name: string, library: IProject, options: IServeOptions): Obse
     const subject = new Subject<void>();
     const src = path.join(options.projectRoot, library.sourceRoot);
     const args = [`--watch ${src}`, '--ext ts,html,css,scss', `--exec 'ng build ${name}'`];
-    exec('nodemon', args, {
+    spawn('nodemon', args, {
         cwd: options.projectRoot,
         shell: true
     }).subscribe(message => {
