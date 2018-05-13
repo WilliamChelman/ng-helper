@@ -1,7 +1,7 @@
 import program, { Command } from 'commander';
 import path from 'path';
 
-import { build } from '../build/build';
+import { Build } from '../build/build';
 import { Serve } from '../serve/serve';
 
 // tslint:disable-next-line:no-var-requires
@@ -18,7 +18,7 @@ export class NgHelper {
 
         this.commonOptions(
             program.command('build [projects...]').action((projectNames: string[], options: any) => {
-                build({ ...options, projectNames });
+                Build.build({ ...options, projectNames });
             })
         );
     }
@@ -38,7 +38,7 @@ export class NgHelper {
                     ' (if more than one option, you have to put everything between quotes)'
             )
             .option(
-                '--projectRoot <path>',
+                '--project-root <path>',
                 'path to the root of the repository',
                 (relPath: string, cwd: string) => (relPath.startsWith('.') ? path.join(cwd, relPath) : relPath),
                 process.cwd()
