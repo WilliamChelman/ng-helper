@@ -37,7 +37,7 @@ Like this you can do stuff like `npm run ng-helper -- serve -i`
 You can serve multiple applications and libraries with just one line of code using `ng-helper serve`. With this, served libraries are automatically rebuilt on code modification, and the apps using them as well.
 
 ```bash
-  Usage: ng-helper ng-serve [options] [projects...]
+  Usage: ng-helper serve [options] [projects...]
 
   Options:
 
@@ -83,7 +83,7 @@ A few other things to consider:
 You can build multiple applications and libraries with just one line of code using `ng-helper build`.
 
 ```bash
-  Usage: ng-helper ng-serve [options] [projects...]
+  Usage: ng-helper build [options] [projects...]
 
   Options:
 
