@@ -2,9 +2,8 @@ import path from 'path';
 import { Observable, of, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { BinUtils } from '../common/bin-utils';
 import { Logger } from '../common/logger';
-import { Ng } from '../common/ng';
-import { Nodemon } from '../common/nodemon';
 import { ICommonOptions, Options } from '../common/options';
 import { getProjects, IDictionary, IProject, ProjectType } from '../common/projects-fetch';
 import { spawn } from '../common/spawn';
@@ -50,8 +49,12 @@ export class Serve {
 
         const subject = new Subject<void>();
         const appOptions = options.appOptions ? options.appOptions.split(' ') : [];
+        const ng = BinUtils.getBinPath('ng');
+        if (!ng) {
+            throw new Error('Could not find path to ng bin');
+        }
         // Could not parse stdout out ng serve for some reason, so nothing interesting here for now
-        spawn(Ng.getBinPath(), ['serve', name, ...appOptions], {
+        spawn(ng, ['serve', name, ...appOptions], {
             cwd: options.projectRoot,
             stdio: ['pipe', process.stdout, process.stderr]
         }).subscribe(
@@ -72,10 +75,17 @@ export class Serve {
 
         const subject = new Subject<void>();
         const src = path.join(options.projectRoot, library.sourceRoot);
-        const command = Nodemon.getBinPath();
-        const args = [`--watch ${src}`, '--ext ts,html,css,scss', `--exec 'ng build ${name}'`];
+        const nodemon = BinUtils.getBinPath('nodemon');
+        if (!nodemon) {
+            throw new Error('Could not find path to nodemon bin');
+        }
+        const ng = BinUtils.getBinPath('ng');
+        if (!ng) {
+            throw new Error('Could not find path to ng bin');
+        }
+        const args = [`--watch ${src}`, '--ext ts,html,css,scss', `--exec '${ng} build ${name}'`];
 
-        spawn(command, args, {
+        spawn(nodemon, args, {
             cwd: options.projectRoot,
             shell: true
         }).subscribe(
@@ -95,4 +105,5 @@ export class Serve {
     private constructor() {}
 }
 
+// tslint:disable-next-line:no-empty-interface for future proofing
 export interface IServeOptions extends ICommonOptions {}
