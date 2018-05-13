@@ -75,14 +75,17 @@ export class Serve {
 
         const subject = new Subject<void>();
         const src = path.join(options.projectRoot, library.sourceRoot);
+
         const nodemon = BinUtils.getBinPath('nodemon');
         if (!nodemon) {
             throw new Error('Could not find path to nodemon bin');
         }
+
         const ng = BinUtils.getBinPath('ng');
         if (!ng) {
             throw new Error('Could not find path to ng bin');
         }
+
         const args = [`--watch ${src}`, '--ext ts,html,css,scss', `--exec '${ng} build ${name}'`];
 
         spawn(nodemon, args, {

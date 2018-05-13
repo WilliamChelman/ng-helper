@@ -1,6 +1,6 @@
 # ng-helper
 
-[![Build Status](https://travis-ci.org/WilliamChelman/ng-helper.svg?branch=master)](https://travis-ci.org/WilliamChelman/ng-helper) [![codecov](https://codecov.io/gh/WilliamChelman/ng-helper/branch/master/graph/badge.svg)](https://codecov.io/gh/WilliamChelman/ng-helper) [![Greenkeeper badge](https://badges.greenkeeper.io/WilliamChelman/ng-helper.svg)](https://greenkeeper.io/) [![CodeFactor](https://www.codefactor.io/repository/github/williamchelman/ng-helper/badge)](https://www.codefactor.io/repository/github/williamchelman/ng-helper)
+[![npm version](https://badge.fury.io/js/%40nephidream%2Fng-helper.svg)](https://badge.fury.io/js/%40nephidream%2Fng-helper) [![Build Status](https://travis-ci.org/WilliamChelman/ng-helper.svg?branch=master)](https://travis-ci.org/WilliamChelman/ng-helper) [![codecov](https://codecov.io/gh/WilliamChelman/ng-helper/branch/master/graph/badge.svg)](https://codecov.io/gh/WilliamChelman/ng-helper) [![Greenkeeper badge](https://badges.greenkeeper.io/WilliamChelman/ng-helper.svg)](https://greenkeeper.io/) [![CodeFactor](https://www.codefactor.io/repository/github/williamchelman/ng-helper/badge)](https://www.codefactor.io/repository/github/williamchelman/ng-helper)
 
 Help you ease development experience with an `@angular/cli` 6+ project with multiple applications and/or libraries.
 
