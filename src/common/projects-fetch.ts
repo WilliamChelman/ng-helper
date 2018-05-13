@@ -3,22 +3,17 @@ import path from 'path';
 
 import { Logger } from './logger';
 
-const cache: IDictionary<IProjects> = {};
-
 export function getProjects(rootPath: string): IProjects {
-    if (cache[rootPath]) {
-        return cache[rootPath];
-    }
     const filePath = path.join(rootPath, 'angular.json');
     if (!fs.existsSync(filePath)) {
         throw new Error(`File ${filePath} does not exists`);
     }
-    Logger.info(`Parsing: ${filePath}`);
+    Logger.debug(`Parsing: ${filePath}`);
     const container: IProjects = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     Object.keys(container.projects)
         .filter(name => name.endsWith('-e2e'))
         .forEach(name => delete container.projects[name]);
-    return (cache[rootPath] = container);
+    return container;
 }
 
 export interface IProjects {

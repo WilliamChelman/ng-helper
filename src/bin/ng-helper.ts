@@ -1,28 +1,49 @@
-import program from 'commander';
+import program, { Command } from 'commander';
 import path from 'path';
 
-import { serve } from './serve';
+import { Build } from '../build/build';
+import { Serve } from '../serve/serve';
 
 // tslint:disable-next-line:no-var-requires
-const packageJson = require('../../package.json');
+const { version } = require('../../package.json');
 
-program
-    .version(packageJson.version)
-    .command('serve [projects...]')
-    .option('-i, --interactive', 'launch in interactive mode')
-    .option('-a, --all', 'start everything')
-    .option('--all-libs', 'start all libraries')
-    .option(
-        '--app-options <options>',
-        'set options for app serving, like "--aot --prod" (if more than one option, you have to put everything between quotes)'
-    )
-    .option(
-        '--projectRoot [path]',
-        'path to the root of the repository',
-        (relPath: string, cwd: string) => path.join(cwd, relPath),
-        process.cwd()
-    )
-    .action((projectNames: string[], options: any) => {
-        serve({ ...options, projectNames });
-    });
-program.parse(process.argv);
+export class NgHelper {
+    static init() {
+        program.version(version);
+        this.commonOptions(
+            program.command('serve [projects...]').action((projectNames: string[], options: any) => {
+                Serve.serve({ ...options, projectNames });
+            })
+        );
+
+        this.commonOptions(
+            program.command('build [projects...]').action((projectNames: string[], options: any) => {
+                Build.build({ ...options, projectNames });
+            })
+        );
+    }
+
+    static launch(argv: string[] = process.argv) {
+        program.parse(argv);
+    }
+
+    private static commonOptions(command: Command): Command {
+        return command
+            .option('-i, --interactive', 'launch in interactive mode')
+            .option('-a, --all', 'select all projects')
+            .option('--all-libs', 'select all libraries')
+            .option(
+                '--app-options <options>',
+                'set options for app tasks, like "--aot --prod"' +
+                    ' (if more than one option, you have to put everything between quotes)'
+            )
+            .option(
+                '--project-root <path>',
+                'path to the root of the repository',
+                (relPath: string, cwd: string) => (relPath.startsWith('.') ? path.join(cwd, relPath) : relPath),
+                process.cwd()
+            );
+    }
+
+    private constructor() {}
+}

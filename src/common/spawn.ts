@@ -1,13 +1,13 @@
-import { spawn, SpawnOptions } from 'child_process';
+import { spawn as realSpawn, SpawnOptions } from 'child_process';
 import { Observable, Subject } from 'rxjs';
 
 import { Logger } from './logger';
 
-export function exec(command: string, args: string[] = [], spawnOptions?: SpawnOptions): Observable<string> {
+export function spawn(command: string, args: string[] = [], spawnOptions: SpawnOptions = {}): Observable<string> {
     Logger.info(`Executing: ${command} ${args.join(' ')}`);
 
     const subject = new Subject<string>();
-    const child = spawn(command, args, spawnOptions);
+    const child = realSpawn(command, args, spawnOptions);
     let killed = false;
 
     const killer = () => {
@@ -22,9 +22,9 @@ export function exec(command: string, args: string[] = [], spawnOptions?: SpawnO
     }
 
     if (child.stderr) {
-        child!.stderr.on('data', data => subject.error(data.toString()));
+        child.stderr.on('data', data => subject.error(data.toString()));
     }
-    child.on('exit', code => {
+    child.on('exit', (code, signal) => {
         process.removeListener('SIGINT', killer);
         if (!killed) {
             if (code !== 0) {

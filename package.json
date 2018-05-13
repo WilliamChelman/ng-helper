@@ -1,6 +1,6 @@
 {
     "name": "@nephidream/ng-helper",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "description": "Help you ease development experience with an `@angular/cli` 6+ project with multiple applications and/or libraries.",
     "main": "dist/index.js",
     "private": false,
@@ -18,7 +18,11 @@
         "url": "git+https://github.com/WilliamChelman/ng-helper.git"
     },
     "author": "William Chelman",
-    "keywords": ["angular", "angular-cli", "Angular CLI"],
+    "keywords": [
+        "angular",
+        "angular-cli",
+        "Angular CLI"
+    ],
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/WilliamChelman/ng-helper/issues"
@@ -60,10 +64,23 @@
         "ng-helper": "./bin/ng-helper"
     },
     "nyc": {
-        "extension": [".ts"],
-        "exclude": ["coverage/**/*", "test/**/*", "dist/**/*", "src/**/*.spec.ts", "**/*.d.ts"],
-        "reporter": ["lcov"],
+        "extension": [
+            ".ts"
+        ],
+        "exclude": [
+            "coverage/**/*",
+            "test/**/*",
+            "dist/**/*",
+            "src/**/*.spec.ts",
+            "**/*.d.ts"
+        ],
+        "reporter": [
+            "lcov"
+        ],
         "all": true,
-        "require": ["ts-node/register", "source-map-support/register"]
+        "require": [
+            "ts-node/register",
+            "source-map-support/register"
+        ]
     }
 }

@@ -1,7 +1,5 @@
 import { expect } from 'chai';
-import fs from 'fs';
 import { describe, it } from 'mocha';
-import { SinonSpy, spy } from 'sinon';
 
 import { getProjects } from './projects-fetch';
 
@@ -14,19 +12,6 @@ describe('projects-fetch', () => {
 
     it('should not throw error on file found', () => {
         expect(() => getProjects(knownPath)).not.to.throw();
-    });
-
-    let fsSpy: SinonSpy;
-    before(() => {
-        fsSpy = spy(fs, 'readFileSync');
-    });
-    after(() => {
-        fsSpy.restore();
-    });
-    it('should cache results', () => {
-        getProjects(knownPath);
-        getProjects(knownPath);
-        expect(fsSpy.callCount).to.eq(1, 'file read should have been called once');
     });
 
     it('should not keep e2e projects', () => {
