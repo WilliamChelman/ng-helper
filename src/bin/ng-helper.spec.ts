@@ -13,7 +13,7 @@ describe('ng-helper', () => {
     after(() => serveStub.restore());
     it('should serve', () => {
         NgHelper.init();
-        NgHelper.launch([process.argv[0], process.argv[1], 'serve', '--projectRoot', './foo/bar']);
+        NgHelper.launch([process.argv[0], process.argv[1], 'serve', '--project-root', './foo/bar']);
         expect(serveStub.callCount).to.eq(1);
     });
 });
