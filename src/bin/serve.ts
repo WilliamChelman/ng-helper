@@ -110,10 +110,10 @@ async function interactive(options: IServeOptions): Promise<IServeOptions> {
 }
 
 export interface IServeOptions {
-    interactive: boolean;
+    interactive?: boolean;
     projectRoot: string;
-    all: boolean;
-    allLibs: boolean;
+    all?: boolean;
+    allLibs?: boolean;
     projectNames: string[];
     appOptions: string;
 }

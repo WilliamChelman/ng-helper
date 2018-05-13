@@ -3,10 +3,15 @@ import { IProjects } from '../projects-fetch';
 // tslint:disable-next-line:no-var-requires
 const prompts = require('prompts');
 
+enum PromptType {
+    TEXT = 'text',
+    MULTI_SELECT = 'multiselect'
+}
+
 export async function askProjectRoot(initial: string = ''): Promise<string> {
     const fieldName = 'projectRoot';
     return prompts({
-        type: 'text',
+        type: PromptType.TEXT,
         initial,
         name: fieldName,
         message: 'set project path'
@@ -21,7 +26,7 @@ export async function askProjects({ projects, defaultProject }: IProjects): Prom
         selected: name === defaultProject
     }));
     return prompts({
-        type: 'multiselect',
+        type: PromptType.MULTI_SELECT,
         name: fieldName,
         message: 'Choose projects to serve',
         choices,
