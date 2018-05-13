@@ -3,8 +3,8 @@ import { IProjects } from '../projects-fetch';
 // tslint:disable-next-line:no-var-requires
 const prompts = require('prompts');
 
-export async function askProjectRoot(initial: string): Promise<string> {
-    const fieldName = 'value';
+export async function askProjectRoot(initial: string = ''): Promise<string> {
+    const fieldName = 'projectRoot';
     return prompts({
         type: 'text',
         initial,
@@ -14,7 +14,7 @@ export async function askProjectRoot(initial: string): Promise<string> {
 }
 
 export async function askProjects({ projects, defaultProject }: IProjects): Promise<string[]> {
-    const fieldName = 'value';
+    const fieldName = 'projectNames';
     const choices = Object.keys(projects).map(name => ({
         title: `${name} (${projects[name].projectType})`,
         value: name,
