@@ -15,7 +15,7 @@ describe('interactive', () => {
     });
 
     it('should prompt for project names', async () => {
-        const projectNames = ['jean-app', 'valjean-lib'];
+        const projectNames = ['jean-app', 'jacques-lib'];
         prompts.inject({ projectNames });
         const projects: IProjects = {
             defaultProject: 'jean-app',
@@ -24,7 +24,7 @@ describe('interactive', () => {
                     projectType: ProjectType.APP,
                     sourceRoot: './here'
                 },
-                'valjean-lib': {
+                'jacques-lib': {
                     projectType: ProjectType.LIB,
                     sourceRoot: './there'
                 }

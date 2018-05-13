@@ -2,4 +2,4 @@
 
 process.title = 'ng-helper';
 
-require('../dist/bin/ng-helper');
+require('../dist/bin/ng-helper').ngHelper();
