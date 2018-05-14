@@ -59,7 +59,7 @@ export class NgHelper {
                 LogLevel[LogLevel.INFO]
             )
             .option(
-                '--project-root <path>',
+                '-p, --project-root <path>',
                 'path to the root of the repository',
                 (relPath: string, cwd: string) => (relPath.startsWith('.') ? path.join(cwd, relPath) : relPath),
                 process.cwd()
