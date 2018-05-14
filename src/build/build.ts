@@ -44,7 +44,7 @@ export class Build {
 
         const subject = new Subject<void>();
         const appOptions = options.appOptions ? options.appOptions.split(' ') : [];
-        const ng = BinUtils.getBinPath('ng');
+        const ng = BinUtils.getBinPath('ng', '@angular/cli');
         if (!ng) {
             throw new Error('Could not find path to ng bin');
         }
@@ -70,7 +70,7 @@ export class Build {
         const subject = new Subject<void>();
         const src = path.join(options.projectRoot, library.sourceRoot);
 
-        const ng = BinUtils.getBinPath('ng');
+        const ng = BinUtils.getBinPath('ng', '@angular/cli');
         if (!ng) {
             throw new Error('Could not find path to ng bin');
         }

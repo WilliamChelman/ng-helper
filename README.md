@@ -16,8 +16,6 @@ or
 npm i @nephidream/ng-helper -g
 ```
 
-note: when used globally, you need to have `nodemon` and `@angular/cli` installed globally too, so local install is advised.
-
 ## Usage
 
 Make the bin directly available in your `package.json` script like `ng`.
@@ -34,22 +32,23 @@ Like this you can do stuff like `npm run ng-helper -- serve -i`
 
 ### Serve
 
-You can serve multiple applications and libraries with just one line of code using `ng-helper serve`. With this, served libraries are automatically rebuilt on code modification, and the apps using them as well.
+You can serve multiple applications and libraries with just one line of code using `ng-helper serve`. With this, served libraries are automatically rebuilt on code modification, and the apps using them as well. A typical use case could be `ng-helper serve --all-libs my-app`.
 
 ```bash
   Usage: ng-helper serve [options] [projects...]
 
   Options:
 
-    -i, --interactive        launch in interactive mode
-    -a, --all                select all projects
-    --all-libs               select all libraries
+    -A, --all                select all projects
+    -a, --all-libs           select all libraries
     --app-options <options>  set options for app tasks, like "--aot --prod" (if more than one option, you have to put everything between quotes)
+    -i, --interactive        launch in interactive mode
+    --log-level <level>      set the log level, possible values are DEBUG,LOG,INFO,WARN,ERROR,NONE (default: INFO)
     --project-root <path>    path to the root of the repository (default: current folder)
     -h, --help               output usage information
 ```
 
-For example, if you are in the root of your application and you generated some applications and/or libraries, your `angular.json` might look like
+For example, if you are in the root of your project and you generated some applications and/or libraries, your `angular.json` might look like
 
 ```json
 {
@@ -87,10 +86,11 @@ You can build multiple applications and libraries with just one line of code usi
 
   Options:
 
-    -i, --interactive        launch in interactive mode
-    -a, --all                select all projects
-    --all-libs               select all libraries
+    -A, --all                select all projects
+    -a, --all-libs           select all libraries
     --app-options <options>  set options for app tasks, like "--aot --prod" (if more than one option, you have to put everything between quotes)
+    -i, --interactive        launch in interactive mode
+    --log-level <level>      set the log level, possible values are DEBUG,LOG,INFO,WARN,ERROR,NONE (default: INFO)
     --project-root <path>    path to the root of the repository (default: current folder)
     -h, --help               output usage information
 ```
