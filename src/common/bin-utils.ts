@@ -24,8 +24,9 @@ export class BinUtils {
     }
 
     static getPackageBin(bin: string, packageName: string, global: boolean): string | undefined {
-        const args = global ? ['root', '-g'] : ['root'];
-        const nodeModules = child_process.execFileSync('npm', args, { encoding: 'utf8' }).trim();
+        const nodeModules = child_process
+            .execFileSync('npm', ['root'], { encoding: 'utf8', cwd: global ? __dirname : void 0 })
+            .trim();
         const packageJson = path.join(nodeModules, packageName, 'package.json');
         if (fs.existsSync(packageJson)) {
             const binRelPath = JSON.parse(fs.readFileSync(packageJson, 'utf8')).bin[bin];
