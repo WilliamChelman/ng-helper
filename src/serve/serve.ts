@@ -49,7 +49,7 @@ export class Serve {
 
         const subject = new Subject<void>();
         const appOptions = options.appOptions ? options.appOptions.split(' ') : [];
-        const ng = BinUtils.getBinPath('ng');
+        const ng = BinUtils.getBinPath('ng', '@angular/cli');
         if (!ng) {
             throw new Error('Could not find path to ng bin');
         }
@@ -81,7 +81,7 @@ export class Serve {
             throw new Error('Could not find path to nodemon bin');
         }
 
-        const ng = BinUtils.getBinPath('ng');
+        const ng = BinUtils.getBinPath('ng', '@angular/cli');
         if (!ng) {
             throw new Error('Could not find path to ng bin');
         }
