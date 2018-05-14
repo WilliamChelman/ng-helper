@@ -1,6 +1,6 @@
 {
     "name": "@nephidream/ng-helper",
-    "version": "0.5.2",
+    "version": "0.5.3",
     "description": "Help you ease development experience with an `@angular/cli` 6+ project with multiple applications and/or libraries.",
     "main": "dist/index.js",
     "private": false,
