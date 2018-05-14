@@ -20,7 +20,6 @@ export class NgHelper {
 
         this.commonOptions(
             program.command('build [projects...]').action((projectNames: string[], options: any) => {
-                console.log(Object.keys(LogLevel));
                 Build.build(this.toCommonOptions(projectNames, options));
             })
         );
