@@ -48,7 +48,7 @@ You can serve multiple applications and libraries with just one line of code usi
     -h, --help               output usage information
 ```
 
-For example, if you are in the root of your application and you generated some applications and/or libraries, your `angular.json` might look like
+For example, if you are in the root of your project and you generated some applications and/or libraries, your `angular.json` might look like
 
 ```json
 {
