@@ -6,7 +6,9 @@ import { getProjects, IProjects, ProjectType } from './projects-fetch';
 
 export class Options {
     static async processOptions(options: ICommonOptions): Promise<ICommonOptions> {
-        Logger.logLevel = options.logLevel;
+        if (options.logLevel != null) {
+            Logger.logLevel = options.logLevel;
+        }
         if (options.interactive) {
             options = await this.interactive(options);
         }
@@ -51,6 +53,6 @@ export interface ICommonOptions {
     all?: boolean;
     allLibs?: boolean;
     projectNames: string[];
-    appOptions: string;
-    logLevel: LogLevel;
+    appOptions?: string;
+    logLevel?: LogLevel;
 }
