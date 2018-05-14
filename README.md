@@ -39,13 +39,13 @@ You can serve multiple applications and libraries with just one line of code usi
 
   Options:
 
-    -A, --all                select all projects
-    -a, --all-libs           select all libraries
-    --app-options <options>  set options for app tasks, like "--aot --prod" (if more than one option, you have to put everything between quotes)
-    -i, --interactive        launch in interactive mode
-    --log-level <level>      set the log level, possible values are DEBUG,LOG,INFO,WARN,ERROR,NONE (default: INFO)
-    --project-root <path>    path to the root of the repository (default: current folder)
-    -h, --help               output usage information
+    -A, --all                  select all projects
+    -a, --all-libs             select all libraries
+    --app-options <options>    set options for app tasks, like "--aot --prod" (if more than one option, you have to put everything between quotes)
+    -i, --interactive          launch in interactive mode
+    --log-level <level>        set the log level, possible values are DEBUG,LOG,INFO,WARN,ERROR,NONE (default: INFO)
+    -p, --project-root <path>  path to the root of the repository (default: current folder)
+    -h, --help                 output usage information
 ```
 
 For example, if you are in the root of your project and you generated some applications and/or libraries, your `angular.json` might look like
@@ -86,13 +86,13 @@ You can build multiple applications and libraries with just one line of code usi
 
   Options:
 
-    -A, --all                select all projects
-    -a, --all-libs           select all libraries
-    --app-options <options>  set options for app tasks, like "--aot --prod" (if more than one option, you have to put everything between quotes)
-    -i, --interactive        launch in interactive mode
-    --log-level <level>      set the log level, possible values are DEBUG,LOG,INFO,WARN,ERROR,NONE (default: INFO)
-    --project-root <path>    path to the root of the repository (default: current folder)
-    -h, --help               output usage information
+    -A, --all                  select all projects
+    -a, --all-libs             select all libraries
+    --app-options <options>    set options for app tasks, like "--aot --prod" (if more than one option, you have to put everything between quotes)
+    -i, --interactive          launch in interactive mode
+    --log-level <level>        set the log level, possible values are DEBUG,LOG,INFO,WARN,ERROR,NONE (default: INFO)
+    -p, --project-root <path>  path to the root of the repository (default: current folder)
+    -h, --help                 output usage information
 ```
 
 The build order follow the same logic as the one presented in the `Serve` section.

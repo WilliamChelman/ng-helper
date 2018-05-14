@@ -1,7 +1,0 @@
-#!/usr/bin/env node
-const { NgHelper } = require('../dist/bin/ng-helper');
-
-process.title = 'ng-helper';
-
-NgHelper.init();
-NgHelper.launch();

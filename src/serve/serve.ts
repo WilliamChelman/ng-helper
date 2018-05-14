@@ -93,7 +93,7 @@ export class Serve {
             shell: true
         }).subscribe(
             message => {
-                Logger.log(message);
+                Logger.info(message);
                 if (message.includes('[nodemon] clean exit')) {
                     // one build just finished
                     subject.next();
