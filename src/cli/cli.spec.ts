@@ -3,17 +3,17 @@ import { describe, it } from 'mocha';
 import sinon, { SinonStub } from 'sinon';
 
 import { Serve } from '../serve/serve';
-import { NgHelper } from './ng-helper';
+import { CLI } from './cli';
 
-describe('ng-helper', () => {
+describe('cli', () => {
     let serveStub: SinonStub;
     before(() => {
         serveStub = sinon.stub(Serve, 'serve');
     });
     after(() => serveStub.restore());
     it('should serve', () => {
-        NgHelper.init();
-        NgHelper.launch([process.argv[0], process.argv[1], 'serve', '--project-root', './foo/bar']);
+        CLI.init();
+        CLI.parse([process.argv[0], process.argv[1], 'serve', '--project-root', './foo/bar']);
         expect(serveStub.callCount).to.eq(1);
     });
 });

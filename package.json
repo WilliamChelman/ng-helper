@@ -61,7 +61,7 @@
         "access": "public"
     },
     "bin": {
-        "ng-helper": "./bin/ng-helper"
+        "ng-helper": "./dist/bin/ng-helper.js"
     },
     "nyc": {
         "extension": [
