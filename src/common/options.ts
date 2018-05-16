@@ -54,5 +54,6 @@ export interface ICommonOptions {
     allLibs?: boolean;
     projectNames: string[];
     appOptions?: string;
+    libOptions?: string;
     logLevel?: LogLevel;
 }

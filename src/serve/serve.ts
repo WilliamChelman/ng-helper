@@ -85,8 +85,11 @@ export class Serve {
         if (!ng) {
             throw new Error('Could not find path to ng bin');
         }
-
-        const args = [`--watch ${src}`, '--ext ts,html,css,scss', `--exec '${ng} build ${name}'`];
+        const buildTask = [ng, 'build', name];
+        if (options.libOptions) {
+            buildTask.push(options.libOptions);
+        }
+        const args = [`--watch ${src}`, '--ext ts,html,css,scss', `--exec '${buildTask.join(' ')}'`];
 
         spawn(nodemon, args, {
             cwd: options.projectRoot,
