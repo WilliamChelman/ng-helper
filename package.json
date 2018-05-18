@@ -11,6 +11,7 @@
         "test:coverage-report": "nyc report --reporter=json > coverage/coverage.json",
         "build": "tsc",
         "lint": "tslint -c tslint.json 'src/**/*.ts'",
+        "release": "standard-version",
         "precommit": "pretty-quick --staged"
     },
     "repository": {
@@ -41,6 +42,7 @@
         "prettier": "^1.12.1",
         "pretty-quick": "^1.4.1",
         "sinon": "^5.0.7",
+        "standard-version": "^4.3.0",
         "ts-node": "~6.0.3",
         "tslib": "^1.9.0",
         "tslint": "~5.10.0",
