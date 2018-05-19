@@ -24,10 +24,12 @@ export interface IProjects {
 export interface IProject {
     projectType: ProjectType;
     sourceRoot: string;
+    root: string;
 }
 
 export interface IPackageJson {
     name: string;
+    version: string;
     dependencies: IDictionary<string>;
     peerDependencies: IDictionary<string>;
     scripts: IDictionary<string>;
