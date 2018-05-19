@@ -3,7 +3,7 @@ import { Observable, of, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { BinUtils } from '../common/bin-utils';
-import { ChildProcessService } from '../common/child-process.service';
+import { ChildProcessService, MessageType } from '../common/child-process.service';
 import { Logger } from '../common/logger';
 import { ICommonOptions, Options } from '../common/options';
 import { getProjects, IDictionary, IProject, ProjectType } from '../common/projects-fetch';
@@ -95,16 +95,17 @@ export class Serve {
                 cwd: options.projectRoot,
                 shell: true
             }
-        }).subscribe(
-            message => {
-                Logger.info(message);
-                if (message.includes('[nodemon] clean exit')) {
+        }).subscribe(({ text, type }) => {
+            if (type === MessageType.STD_OUT) {
+                Logger.info(text);
+                if (text.includes('[nodemon] clean exit')) {
                     // one build just finished
                     subject.next();
                 }
-            },
-            err => Logger.error(`Serving library ${name} exited with code ${err}`)
-        );
+            } else if (type === MessageType.STD_ERR) {
+                Logger.error(text);
+            }
+        });
 
         return subject;
     }

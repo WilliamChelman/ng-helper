@@ -4,8 +4,8 @@ import { Observable, Observer } from 'rxjs';
 import { Logger } from './logger';
 
 export class ChildProcessService {
-    static spawnObs({ command, args = [], spawnOptions = {} }: ISpawnObsOptions): Observable<string> {
-        return Observable.create((obs: Observer<string>) => {
+    static spawnObs({ command, args = [], spawnOptions = {} }: ISpawnObsOptions): Observable<IMessage> {
+        return Observable.create((obs: Observer<IMessage>) => {
             Logger.info(`Executing: ${command} ${args.join(' ')}`);
 
             const child = spawn(command, args, spawnOptions);
@@ -14,11 +14,11 @@ export class ChildProcessService {
             process.on('SIGINT', killer);
 
             if (child.stdout) {
-                child.stdout.on('data', data => obs.next(data.toString()));
+                child.stdout.on('data', data => obs.next({ text: data.toString(), type: MessageType.STD_OUT }));
             }
 
             if (child.stderr) {
-                child.stderr.on('data', data => obs.error(data.toString()));
+                child.stderr.on('data', data => obs.next({ text: data.toString(), type: MessageType.STD_ERR }));
             }
 
             child.on('exit', (code, signal) => {
@@ -38,10 +38,14 @@ export interface ISpawnObsOptions {
     command: string;
     args?: string[];
     spawnOptions?: SpawnOptions;
-    stderrHandling?: StdHandlingType;
 }
 
-export enum StdHandlingType {
-    NEXT,
-    ERROR
+export interface IMessage {
+    type: MessageType;
+    text: string;
+}
+
+export enum MessageType {
+    STD_OUT,
+    STD_ERR
 }
