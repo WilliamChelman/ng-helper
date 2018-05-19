@@ -6,10 +6,9 @@ import { Logger } from '../common/logger';
 import { getProjects, IPackageJson, IProject } from '../common/projects-fetch';
 
 export class Version {
-    static async version({ projectRoot, version = this.getRootVersion(projectRoot) }: IVersionOptions) {
+    static version({ projectRoot, version = this.getRootVersion(projectRoot) }: IVersionOptions) {
         const { projects } = getProjects(projectRoot);
 
-        // only keep relevant projects
         Object.keys(projects)
             .map(name => projects[name])
             .filter(project => fs.existsSync(path.join(projectRoot, project.root, 'package.json')))
