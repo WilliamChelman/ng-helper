@@ -12,7 +12,7 @@
         "build": "tsc",
         "lint": "tslint -c tslint.json 'src/**/*.ts'",
         "release": "standard-version",
-        "precommit": "pretty-quick --staged"
+        "precommit": "pretty-quick --staged && lint-staged"
     },
     "repository": {
         "type": "git",
@@ -37,10 +37,12 @@
         "@types/yargs": "^11.0.0",
         "chai": "^4.1.2",
         "husky": "^0.14.3",
+        "lint-staged": "^7.1.1",
         "mocha": "^5.1.1",
         "nyc": "^11.7.3",
         "prettier": "^1.12.1",
         "pretty-quick": "^1.4.1",
+        "rxjs-compat": "^6.1.0",
         "sinon": "^5.0.7",
         "standard-version": "^4.3.0",
         "ts-node": "~6.0.3",
@@ -61,6 +63,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "lint-staged": {
+        "src/**/*.ts": [
+            "tslint --fix",
+            "git add"
+        ]
     },
     "bin": {
         "ng-helper": "./dist/bin/ng-helper.js"
