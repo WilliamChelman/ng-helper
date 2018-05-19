@@ -22,11 +22,13 @@ describe('interactive', () => {
             projects: {
                 'jean-app': {
                     projectType: ProjectType.APP,
-                    sourceRoot: './here'
+                    sourceRoot: './here',
+                    root: './'
                 },
                 'jacques-lib': {
                     projectType: ProjectType.LIB,
-                    sourceRoot: './there'
+                    sourceRoot: './there',
+                    root: './'
                 }
             }
         };

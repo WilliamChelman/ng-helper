@@ -6,6 +6,7 @@ import { LogLevel } from '../common/logger';
 import { ICommonOptions } from '../common/options';
 import { Serve } from '../serve/serve';
 import { Test } from '../test/test';
+import { Version } from '../version/version';
 
 // tslint:disable-next-line:no-var-requires
 const { version } = require('../../../package.json');
@@ -25,11 +26,16 @@ export class CLI {
             })
         );
 
+        // todo document test in README
         this.commonOptions(
             program.command('test [projects...]').action((projectNames: string[], options: any) => {
                 Test.test(this.toCommonOptions(projectNames, options));
             })
         );
+
+        this.setProjectRootOption(program.command('version [value]')).action((versionValue: string, options: any) => {
+            Version.version({ projectRoot: options.projectRoot, version: versionValue });
+        });
 
         return program;
     }
@@ -48,7 +54,7 @@ export class CLI {
     }
 
     private static commonOptions(command: Command): Command {
-        return command
+        command
             .option('-A, --all', 'select all projects')
             .option('-a, --all-libs', 'select all libraries')
             .option(
@@ -68,13 +74,18 @@ export class CLI {
                     isNaN(parseInt(level, 10))
                 )}`,
                 LogLevel[LogLevel.INFO]
-            )
-            .option(
-                '-p, --project-root <path>',
-                'path to the root of the repository',
-                (relPath: string, cwd: string) => (relPath.startsWith('.') ? path.join(cwd, relPath) : relPath),
-                process.cwd()
             );
+
+        return this.setProjectRootOption(command);
+    }
+
+    private static setProjectRootOption(command: Command): Command {
+        return command.option(
+            '-p, --project-root <path>',
+            'path to the root of the repository',
+            (relPath: string, cwd: string) => (relPath.startsWith('.') ? path.join(cwd, relPath) : relPath),
+            process.cwd()
+        );
     }
 
     private constructor() {}
