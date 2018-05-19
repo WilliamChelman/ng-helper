@@ -28,7 +28,32 @@ Make the bin directly available in your `package.json` script like `ng`.
 }
 ```
 
-Like this you can do stuff like `npm run ng-helper -- serve -i`
+Like this you can do stuff like `npm run ng-helper -- serve -i`. A typical use could be
+
+```json
+{
+    "scripts": {
+        "start": "ng-helper serve -A",
+        "test": "ng-helper test -A",
+        "test:ci" : "npm test -- --app-options '--no-watch' --lib-options '--no-watch'",
+        "build": "ng-helper build -A",
+        ...
+    }
+}
+```
+
+Please note that `-A` will select all projects (apps and libraries), so if you have multiple applications, you might want to adapt your start scripts like
+
+```json
+{
+    "scripts": {
+        "start": "ng-helper serve -a main-app",
+        "start:app-a": "ng-helper serve -a app-a",
+        "start:app-b": "ng-helper serve -a app-b",
+        ...
+    }
+}
+```
 
 ### Serve
 
@@ -96,6 +121,42 @@ You can build multiple applications and libraries with just one line of code usi
 ```
 
 The build order follow the same logic as the one presented in the `Serve` section.
+
+### Test
+
+You can test multiple applications and libraries with just one line of code using `ng-helper test`.
+
+```bash
+  Usage: test [options] [projects...]
+
+  Options:
+
+    -A, --all                  select all projects
+    -a, --all-libs             select all libraries
+    --app-options <options>    set options for app tasks, like "--aot --prod" (if more than one option, you have to put everything between quotes)
+    --lib-options <options>    set options for lib tasks, like "--prod" (if more than one option, you have to put everything between quotes)
+    -i, --interactive          launch in interactive mode
+    --log-level <level>        set the log level, possible values are DEBUG,LOG,INFO,WARN,ERROR,NONE (default: INFO)
+    -p, --project-root <path>  path to the root of the repository (default: current folder)
+    -h, --help                 output usage information
+```
+
+If one of the projects' tests fail, the process exit with the corresponding exit code;
+
+### Version
+
+You can change the version of all `package.json` of the different projects.
+
+```bash
+  Usage: version [options] [value]
+
+  Options:
+
+    -p, --project-root <path>  path to the root of the repository (default: /home/wchelman/Dev/ng-helper)
+    -h, --help                 output usage information
+```
+
+If no value (like `1.0.1`) is given, the version of the root `package.json` will be applied to all others.
 
 ## Licence
 
