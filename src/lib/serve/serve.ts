@@ -3,10 +3,10 @@ import { Observable, of, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { BinUtils } from '../common/bin-utils';
+import { ChildProcessService } from '../common/child-process.service';
 import { Logger } from '../common/logger';
 import { ICommonOptions, Options } from '../common/options';
 import { getProjects, IDictionary, IProject, ProjectType } from '../common/projects-fetch';
-import { spawn } from '../common/spawn';
 
 export class Serve {
     static async serve(options: IServeOptions) {
@@ -49,14 +49,16 @@ export class Serve {
 
         const subject = new Subject<void>();
         const appOptions = options.appOptions ? options.appOptions.split(' ') : [];
-        const ng = BinUtils.getBinPath('ng', '@angular/cli');
-        if (!ng) {
-            throw new Error('Could not find path to ng bin');
-        }
+        const ng = BinUtils.getBinPathStrict('ng', '@angular/cli');
+
         // Could not parse stdout out ng serve for some reason, so nothing interesting here for now
-        spawn(ng, ['serve', name, ...appOptions], {
-            cwd: options.projectRoot,
-            stdio: ['pipe', process.stdout, process.stderr]
+        ChildProcessService.spawnObs({
+            command: ng,
+            args: ['serve', name, ...appOptions],
+            spawnOptions: {
+                cwd: options.projectRoot,
+                stdio: 'inherit'
+            }
         }).subscribe(
             message => {
                 Logger.log('NEXT', message);
@@ -76,24 +78,23 @@ export class Serve {
         const subject = new Subject<void>();
         const src = path.join(options.projectRoot, library.sourceRoot);
 
-        const nodemon = BinUtils.getBinPath('nodemon');
-        if (!nodemon) {
-            throw new Error('Could not find path to nodemon bin');
-        }
-
-        const ng = BinUtils.getBinPath('ng', '@angular/cli');
-        if (!ng) {
-            throw new Error('Could not find path to ng bin');
-        }
+        const nodemon = BinUtils.getBinPathStrict('nodemon');
+        const ng = BinUtils.getBinPathStrict('ng', '@angular/cli');
         const buildTask = [ng, 'build', name];
+
         if (options.libOptions) {
             buildTask.push(options.libOptions);
         }
+
         const args = [`--watch ${src}`, '--ext ts,html,css,scss', `--exec '${buildTask.join(' ')}'`];
 
-        spawn(nodemon, args, {
-            cwd: options.projectRoot,
-            shell: true
+        ChildProcessService.spawnObs({
+            command: nodemon,
+            args,
+            spawnOptions: {
+                cwd: options.projectRoot,
+                shell: true
+            }
         }).subscribe(
             message => {
                 Logger.info(message);

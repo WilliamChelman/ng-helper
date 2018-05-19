@@ -1,3 +1,3 @@
-import { Logger, LogLevel } from '../src/common/logger';
+import { Logger, LogLevel } from '../src/lib/common/logger';
 
 Logger.logLevel = LogLevel.NONE;

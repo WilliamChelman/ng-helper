@@ -26,7 +26,7 @@
             "name": "Serve",
             "type": "node",
             "request": "launch",
-            "args": ["${workspaceFolder}/src/bin/ng-helper.ts", "--", "serve", "-h"],
+            "args": ["${workspaceFolder}/src/bin/ng-helper.ts", "serve", "-h"],
             "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
             "sourceMaps": true,
             "cwd": "${workspaceRoot}",

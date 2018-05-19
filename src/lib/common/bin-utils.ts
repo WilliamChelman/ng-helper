@@ -3,6 +3,14 @@ import fs from 'fs';
 import path from 'path';
 
 export class BinUtils {
+    static getBinPathStrict(bin: string, packageName = bin): string {
+        const binPath = this.getBinPath(bin, packageName);
+        if (!binPath) {
+            throw new Error(`Could not find path to bin '${bin}' in package '${packageName}'`);
+        }
+        return binPath;
+    }
+
     static getBinPath(bin: string, packageName = bin): string | undefined {
         return (
             this.getNormalBin(bin, false) ||

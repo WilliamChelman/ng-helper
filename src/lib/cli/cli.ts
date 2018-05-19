@@ -8,7 +8,7 @@ import { Serve } from '../serve/serve';
 import { Test } from '../test/test';
 
 // tslint:disable-next-line:no-var-requires
-const { version } = require('../../package.json');
+const { version } = require('../../../package.json');
 
 export class CLI {
     static get(): CommanderStatic {

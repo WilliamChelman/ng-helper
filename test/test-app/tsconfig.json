@@ -13,7 +13,8 @@
         "lib": ["es2017", "dom"],
         "paths": {
             "lib-a": ["dist/lib-a"],
-            "lib-b": ["dist/lib-b"]
+            "lib-b": ["dist/lib-b"],
+            "build-fail-lib": ["dist/build-fail-lib"]
         }
     }
 }
