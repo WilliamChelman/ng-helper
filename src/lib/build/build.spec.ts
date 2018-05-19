@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import sinon, { SinonStub } from 'sinon';
 
 import { BinUtils } from '../common/bin-utils';
-import * as spawn from '../common/spawn';
+import { ChildProcessService, ISpawnObsOptions } from '../common/child-process.service';
 import { Build } from './build';
 
 describe('Build', () => {
@@ -13,7 +13,7 @@ describe('Build', () => {
     let binPathSub: SinonStub;
 
     before(() => {
-        spawnStub = sinon.stub(spawn, 'spawn').callsFake(() => of('[nodemon] clean exit'));
+        spawnStub = sinon.stub(ChildProcessService, 'spawnObs').callsFake(() => of('[nodemon] clean exit'));
         binPathSub = sinon.stub(BinUtils, 'getBinPath').callsFake(name => name);
     });
 
@@ -45,7 +45,7 @@ describe('Build', () => {
     });
 
     function getExecLine(index: number): string {
-        const args = spawnStub.args[index];
-        return `${args[0]} ${args[1].join(' ')}`;
+        const options: ISpawnObsOptions = spawnStub.args[index][0];
+        return `${options.command} ${options.args!.join(' ')}`;
     }
 });

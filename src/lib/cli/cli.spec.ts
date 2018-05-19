@@ -12,8 +12,7 @@ describe('cli', () => {
     });
     after(() => serveStub.restore());
     it('should serve', () => {
-        CLI.init();
-        CLI.parse([process.argv[0], process.argv[1], 'serve', '--project-root', './foo/bar']);
+        CLI.get().parse([process.argv[0], process.argv[1], 'serve', '--project-root', './foo/bar']);
         expect(serveStub.callCount).to.eq(1);
     });
 });
