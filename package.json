@@ -44,7 +44,7 @@
     "prettier": "^1.12.1",
     "pretty-quick": "^1.4.1",
     "rxjs-compat": "^6.1.0",
-    "sinon": "^5.0.7",
+    "sinon": "^6.0.1",
     "standard-version": "^4.3.0",
     "ts-node": "~6.0.3",
     "tslib": "^1.9.0",
