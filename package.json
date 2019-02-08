@@ -60,7 +60,7 @@
     "commander": "^2.15.1",
     "detect-indent": "^5.0.0",
     "nodemon": "^1.17.4",
-    "prompts": "^0.1.8",
+    "prompts": "^2.0.2",
     "rxjs": "^6.1.0"
   },
   "publishConfig": {
