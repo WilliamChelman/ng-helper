@@ -53,7 +53,7 @@
     "typescript": "~2.8.3"
   },
   "peerDependencies": {
-    "@angular/cli": "^6.0.0"
+    "@angular/cli": "^7.3.7"
   },
   "dependencies": {
     "chalk": "^2.4.1",
