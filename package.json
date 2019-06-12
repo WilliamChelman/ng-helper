@@ -34,7 +34,7 @@
     "@types/detect-indent": "^5.0.0",
     "@types/mocha": "^5.2.0",
     "@types/node": "^10.0.4",
-    "@types/sinon": "^5.0.0",
+    "@types/sinon": "^7.0.13",
     "@types/yargs": "^11.0.0",
     "chai": "^4.1.2",
     "husky": "^0.14.3",
